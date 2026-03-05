@@ -1,5 +1,6 @@
 """Auth routes (PUBLIC)"""
 from fastapi import APIRouter, Depends, HTTPException, status
+from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.database import get_db
 from app.utils.response import success_response, error_response
@@ -9,7 +10,7 @@ from app.schemas.auth import (
     AuthResponse
 )
 from app.services.auth_service import AuthService
-from app.utils.dependencies import get_current_user
+from app.dependencies import get_current_user
 
 router = APIRouter()
 
@@ -25,6 +26,16 @@ async def register(req: RegisterRequest, db: AsyncSession = Depends(get_db)):
         }, status_code=201)
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
+    except SQLAlchemyError:
+        raise HTTPException(
+            status_code=503,
+            detail="Database unavailable. Check DATABASE_URL credentials and database status.",
+        )
+    except Exception:
+        raise HTTPException(
+            status_code=503,
+            detail="Database connection failed. Verify Postgres is running and DATABASE_URL credentials are correct.",
+        )
 
 
 @router.post("/login")
@@ -38,6 +49,16 @@ async def login(req: LoginRequest, db: AsyncSession = Depends(get_db)):
         })
     except ValueError as e:
         raise HTTPException(status_code=401, detail=str(e))
+    except SQLAlchemyError:
+        raise HTTPException(
+            status_code=503,
+            detail="Database unavailable. Check DATABASE_URL credentials and database status.",
+        )
+    except Exception:
+        raise HTTPException(
+            status_code=503,
+            detail="Database connection failed. Verify Postgres is running and DATABASE_URL credentials are correct.",
+        )
 
 
 @router.post("/logout")
@@ -108,3 +129,4 @@ async def resend_otp(req: ResendOTPRequest, db: AsyncSession = Depends(get_db)):
         return success_response({"message": "OTP sent successfully"})
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
+

@@ -1,7 +1,7 @@
 """Product models"""
 from datetime import datetime, date
 from uuid import uuid4
-from sqlalchemy import Column, String, DateTime, TEXT, Date, Index, Enum as SQLEnum, Numeric
+from sqlalchemy import Column, String, DateTime, TEXT, Date, Index, Enum as SQLEnum, Numeric, Boolean, LargeBinary
 from sqlalchemy.orm import declarative_base
 from sqlalchemy.sql import func
 import enum
@@ -40,7 +40,7 @@ class ProductCategory(Base):
     name = Column(String(100), nullable=False)
     description = Column(TEXT)
     parent_id = Column(String(36))  # Self-referencing FK
-    is_active = Column(None, default=True)  # Boolean
+    is_active = Column(Boolean, default=True)
     created_at = Column(DateTime, default=func.now())
 
 
@@ -82,7 +82,7 @@ class ProductBarcode(Base):
     product_id = Column(String(36), nullable=False)  # FK to products
     barcode_type = Column(SQLEnum(BarcodeType))
     barcode_value = Column(String(255), nullable=False)
-    is_primary = Column(None, default=False)  # Boolean
+    is_primary = Column(Boolean, default=False)
     created_at = Column(DateTime, default=func.now())
     
     __table_args__ = (
@@ -97,7 +97,7 @@ class ProductEmbedding(Base):
     id = Column(String(36), primary_key=True, default=lambda: str(uuid4()))
     product_id = Column(String(36), nullable=False)  # FK to products
     embedding_type = Column(SQLEnum(EmbeddingType), nullable=False)
-    embedding_vector = Column(None)  # BYTEA
+    embedding_vector = Column(LargeBinary)
     model_version = Column(String(50))
     confidence_score = Column(Numeric(5, 2))
     created_at = Column(DateTime, default=func.now())

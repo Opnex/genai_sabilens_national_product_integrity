@@ -26,6 +26,9 @@ class AuthService:
         if existing.scalars().first():
             raise ValueError("User already exists")
         
+        # In local debug mode, auto-activate accounts to simplify testing.
+        auto_activate = settings.AUTH_AUTO_ACTIVATE
+
         # Create user
         user = User(
             email=req.email,
@@ -34,9 +37,9 @@ class AuthService:
             first_name=req.first_name,
             last_name=req.last_name,
             role=req.role,
-            status=UserStatus.PENDING,
-            phone_verified=False,
-            email_verified=False,
+            status=UserStatus.ACTIVE if auto_activate else UserStatus.PENDING,
+            phone_verified=auto_activate,
+            email_verified=auto_activate,
         )
         db.add(user)
         await db.flush()
@@ -80,6 +83,7 @@ class AuthService:
         # Update last login
         user.last_login = datetime.utcnow()
         await db.commit()
+        await db.refresh(user)
         
         # Create tokens
         tokens = await AuthService.create_tokens(user)

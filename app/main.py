@@ -3,7 +3,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 from app.config import settings
-from app.routers import auth, consumer, company, nafdac
+from app.routers import auth, consumer, company, nafdac, websocket
 
 
 @asynccontextmanager
@@ -39,6 +39,7 @@ app.include_router(auth.router, prefix="/api/v1/auth", tags=["auth"])
 app.include_router(consumer.router, prefix="/api/v1/consumer", tags=["consumer"])
 app.include_router(company.router, prefix="/api/v1/company", tags=["company"])
 app.include_router(nafdac.router, prefix="/api/v1/nafdac", tags=["nafdac"])
+app.include_router(websocket.router, tags=["websocket"])
 
 
 # Root endpoint

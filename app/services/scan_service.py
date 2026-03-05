@@ -87,3 +87,68 @@ class ScanService:
         await db.commit()
         await db.refresh(analysis)
         return analysis
+    @staticmethod
+    async def get_recent_scans(db: AsyncSession, user_id: str, limit: int = 5) -> List[Scan]:
+        """Get recent scans for home page"""
+        stmt = select(Scan).where(Scan.user_id == user_id).order_by(desc(Scan.created_at)).limit(limit)
+        result = await db.execute(stmt)
+        return result.scalars().all()
+
+    @staticmethod
+    async def clear_history(db: AsyncSession, user_id: str) -> bool:
+        """Clear all scan history for a user"""
+        stmt = delete(Scan).where(Scan.user_id == user_id)
+        await db.execute(stmt)
+        await db.commit()
+        return True
+
+    @staticmethod
+    async def filter_scans(db: AsyncSession, user_id: str, status: Optional[str] = None, start_date: Optional[datetime] = None, end_date: Optional[datetime] = None, limit: int = 20, offset: int = 0) -> tuple[List[Scan], int]:
+        """Filter scans by status and date"""
+        stmt = select(Scan).where(Scan.user_id == user_id)
+        if status:
+            stmt = stmt.where(Scan.status == status)
+        if start_date:
+            stmt = stmt.where(Scan.created_at >= start_date)
+        if end_date:
+            stmt = stmt.where(Scan.created_at <= end_date)
+        
+        stmt = stmt.order_by(desc(Scan.created_at)).limit(limit).offset(offset)
+        result = await db.execute(stmt)
+        scans = result.scalars().all()
+
+        # Count total
+        count_stmt = select(func.count()).select_from(Scan).where(Scan.user_id == user_id)
+        if status:
+            count_stmt = count_stmt.where(Scan.status == status)
+        if start_date:
+            count_stmt = count_stmt.where(Scan.created_at >= start_date)
+        if end_date:
+            count_stmt = count_stmt.where(Scan.created_at <= end_date)
+        
+        count_result = await db.execute(count_stmt)
+        total = count_result.scalar() or 0
+        
+        return scans, total
+
+    @staticmethod
+    async def get_scan_stats(db: AsyncSession, user_id: str) -> dict:
+        """Get scan statistics for a user"""
+        stmt = select(
+            func.count(Scan.id).label("total"),
+            func.sum(func.case((Scan.status == ScanStatus.AUTHENTIC, 1), else_=0)).label("authentic"),
+            func.sum(func.case((Scan.status == ScanStatus.CAUTION, 1), else_=0)).label("caution"),
+            func.sum(func.case((Scan.status == ScanStatus.FAKE, 1), else_=0)).label("fake"),
+            func.sum(func.case((Scan.status == ScanStatus.PENDING, 1), else_=0)).label("pending")
+        ).where(Scan.user_id == user_id)
+        
+        result = await db.execute(stmt)
+        row = result.fetchone()
+        
+        return {
+            "total_scans": row.total or 0,
+            "authentic_count": row.authentic or 0,
+            "suspicious_count": row.caution or 0,
+            "fake_count": row.fake or 0,
+            "pending_count": row.pending or 0
+        }

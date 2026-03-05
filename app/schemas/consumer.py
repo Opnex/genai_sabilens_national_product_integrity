@@ -2,7 +2,8 @@
 from datetime import datetime, date
 from typing import Optional, List
 from pydantic import BaseModel, Field
-from app.models.scan import ScanStatus, ReportStatus, Severity, PurchaseChannel
+from app.models.scan import ScanStatus
+from app.models.report import ReportStatus, Severity, PurchaseChannel
 
 
 class ScanCreateRequest(BaseModel):

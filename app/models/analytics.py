@@ -51,7 +51,7 @@ class VendorLocation(Base):
     state = Column(String(100))
     report_count = Column(Integer, default=1)
     risk_level = Column(SQLEnum(RiskLevel), default=RiskLevel.UNKNOWN)
-    is_blacklisted = Column(None, default=False)  # Boolean
+    is_blacklisted = Column(Boolean, default=False)
     blacklisted_at = Column(DateTime)
     blacklisted_by = Column(String(36))  # FK to users
     last_reported_at = Column(DateTime)
@@ -129,7 +129,7 @@ class Language(Base):
     id = Column(Integer, primary_key=True)
     code = Column(String(10), nullable=False, unique=True)
     name = Column(String(50), nullable=False)
-    is_active = Column(None, default=True)  # Boolean
+    is_active = Column(Boolean, default=True)
 
 
 class AuditLog(Base):
@@ -162,5 +162,6 @@ class SystemLog(Base):
     log_level = Column(String(20))  # debug, info, warning, error, critical
     component = Column(String(100))
     message = Column(TEXT)
-    metadata = Column(String)  # JSONB
+    metadata_json = Column("metadata", String)  # JSONB
     created_at = Column(DateTime, default=func.now())
+

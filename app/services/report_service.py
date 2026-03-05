@@ -2,9 +2,9 @@
 from datetime import datetime
 from typing import Optional, List
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import select, desc
+from sqlalchemy import select, desc, func
 
-from app.models.scan import Report, ReportEvidence
+from app.models.report import Report, ReportEvidence, ReportStatus, Severity, PurchaseChannel
 from app.models.alert import Alert
 
 
@@ -103,3 +103,41 @@ class ReportService:
         stmt = select(Report).order_by(desc(Report.created_at)).limit(50)
         result = await db.execute(stmt)
         return result.scalars().all()
+    @staticmethod
+    async def get_company_reports(
+        db: AsyncSession,
+        company_id: str,
+        status: Optional[ReportStatus] = None,
+        severity: Optional[Severity] = None,
+        channel: Optional[PurchaseChannel] = None,
+        limit: int = 20,
+        offset: int = 0,
+    ) -> tuple[List[Report], int]:
+        """Get reports related to a specific company with advanced filtering"""
+        from app.models.report import Report
+        stmt = select(Report).where(Report.company_id == company_id)
+        
+        if status: stmt = stmt.where(Report.report_status == status)
+        if severity: stmt = stmt.where(Report.severity == severity)
+        if channel: stmt = stmt.where(Report.purchase_channel == channel)
+        
+        stmt = stmt.order_by(desc(Report.reported_at)).limit(limit).offset(offset)
+        result = await db.execute(stmt)
+        reports = result.scalars().all()
+        
+        # Count
+        count_stmt = select(func.count()).select_from(Report).where(Report.company_id == company_id)
+        if status: count_stmt = count_stmt.where(Report.report_status == status)
+        if severity: count_stmt = count_stmt.where(Report.severity == severity)
+        if channel: count_stmt = count_stmt.where(Report.purchase_channel == channel)
+        
+        count_result = await db.execute(count_stmt)
+        total = count_result.scalar() or 0
+        
+        return reports, total
+
+    @staticmethod
+    async def export_reports(db: AsyncSession, company_id: str, format: str = "csv") -> str:
+        """Export company reports to a file and return the URL"""
+        # Mocking file generation
+        return f"/exports/reports_{company_id}_{datetime.now().strftime('%Y%m%d')}.{format}"

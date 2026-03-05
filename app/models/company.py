@@ -1,7 +1,7 @@
 """Company models"""
 from datetime import datetime
 from uuid import uuid4
-from sqlalchemy import Column, String, DateTime, Boolean, Numeric, TEXT, Index, Enum as SQLEnum
+from sqlalchemy import Column, String, DateTime, Boolean, Numeric, TEXT, Index, Integer, Enum as SQLEnum
 from sqlalchemy.orm import declarative_base
 from sqlalchemy.sql import func
 import enum
@@ -99,9 +99,9 @@ class SubscriptionPlan(Base):
     price_monthly = Column(Numeric(10, 2))
     price_annual = Column(Numeric(10, 2))
     features = Column(String)  # JSONB
-    max_scans_monthly = Column(None)  # Integer
-    max_products = Column(None)  # Integer
-    max_team_members = Column(None)  # Integer
+    max_scans_monthly = Column(Integer)
+    max_products = Column(Integer)
+    max_team_members = Column(Integer)
     api_access = Column(Boolean, default=False)
     webhook_support = Column(Boolean, default=False)
     priority_support = Column(Boolean, default=False)
@@ -123,9 +123,9 @@ class WebhookLog(Base):
     webhook_url = Column(TEXT, nullable=False)
     event_type = Column(String(100))
     payload = Column(String)  # JSONB
-    response_status = Column(None)  # Integer
+    response_status = Column(Integer)
     response_body = Column(TEXT)
-    retry_count = Column(None, default=0)  # Integer
+    retry_count = Column(Integer, default=0)
     last_retry_at = Column(DateTime)
     success = Column(Boolean, default=False)
     error_message = Column(TEXT)

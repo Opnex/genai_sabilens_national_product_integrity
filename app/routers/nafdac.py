@@ -3,7 +3,7 @@ from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.database import get_db
 from app.utils.response import success_response, paginated_response
-from app.utils.dependencies import get_current_user, require_role
+from app.dependencies import get_current_user, require_role
 from app.services.nafdac_service import NAFDACService
 from app.schemas.nafdac import CaseCreateRequest, EnforcementActionCreateRequest
 
@@ -226,12 +226,12 @@ async def export_alerts(db: AsyncSession = Depends(get_db)):
 
 # Cases & Evidence
 @router.get("/cases")
-async def get_cases(db: AsyncSession = Depends(get_db)):
+async def get_cases_stub(db: AsyncSession = Depends(get_db)):
     return success_response({})
 
 
 @router.get("/cases/{case_id}")
-async def get_case(case_id: str, db: AsyncSession = Depends(get_db)):
+async def get_case_stub(case_id: str, db: AsyncSession = Depends(get_db)):
     return success_response({})
 
 
@@ -484,3 +484,4 @@ async def delete_category(cat_id: str, db: AsyncSession = Depends(get_db)):
 @router.get("/settings/audit-logs")
 async def get_audit_logs(db: AsyncSession = Depends(get_db)):
     return success_response({})
+

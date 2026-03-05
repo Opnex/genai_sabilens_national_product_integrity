@@ -50,8 +50,8 @@ class Alert(Base):
     title = Column(String(255), nullable=False)
     message = Column(TEXT, nullable=False)
     alert_data = Column(String)  # JSONB - renamed from metadata
-    is_read = Column(None, default=False)  # Boolean
-    is_acknowledged = Column(None, default=False)  # Boolean
+    is_read = Column(Boolean, default=False)
+    is_acknowledged = Column(Boolean, default=False)
     acknowledged_by = Column(String(36))  # FK to users
     acknowledged_at = Column(DateTime)
     created_at = Column(DateTime, default=func.now())
@@ -74,7 +74,7 @@ class Notification(Base):
     title = Column(String(255), nullable=False)
     message = Column(TEXT, nullable=False)
     data = Column(String)  # JSONB
-    is_read = Column(None, default=False)  # Boolean
+    is_read = Column(Boolean, default=False)
     read_at = Column(DateTime)
     created_at = Column(DateTime, default=func.now())
     
@@ -92,6 +92,6 @@ class NotificationPreference(Base):
     user_id = Column(String(36), nullable=False, unique=True)  # FK to users
     notification_type = Column(String(50), nullable=False)
     channel = Column(SQLEnum(NotificationChannel))
-    enabled = Column(None, default=True)  # Boolean
+    enabled = Column(Boolean, default=True)
     created_at = Column(DateTime, default=func.now())
     updated_at = Column(DateTime, default=func.now(), onupdate=func.now())

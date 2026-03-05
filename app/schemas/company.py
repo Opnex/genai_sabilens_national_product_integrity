@@ -1,7 +1,7 @@
 """Company request and response schemas"""
 from typing import Optional, List
-from pydantic import BaseModel, EmailStr
-from datetime import datetime
+from pydantic import BaseModel, EmailStr, Field
+from datetime import datetime, date
 
 
 class CompanyRegistrationRequest(BaseModel):
@@ -14,6 +14,7 @@ class CompanyRegistrationRequest(BaseModel):
     city: str
     state: str
     website: Optional[str] = None
+    password: str = Field(..., min_length=8)
 
 
 class CompanyLoginRequest(BaseModel):
@@ -52,8 +53,8 @@ class ProductCreateRequest(BaseModel):
     nafdac_number: str
     batch_number: Optional[str] = None
     manufacturer_name: str
-    manufacturing_date: Optional[str] = None
-    expiry_date: Optional[str] = None
+    manufacturing_date: Optional[date] = None
+    expiry_date: Optional[date] = None
     ingredients: Optional[str] = None
     warnings: Optional[str] = None
 
@@ -68,8 +69,8 @@ class ProductResponse(BaseModel):
     nafdac_number: str
     batch_number: Optional[str] = None
     manufacturer_name: str
-    manufacturing_date: Optional[str] = None
-    expiry_date: Optional[str] = None
+    manufacturing_date: Optional[date] = None
+    expiry_date: Optional[date] = None
     status: str
     created_at: datetime
 
@@ -151,6 +152,23 @@ class AlertListResponse(BaseModel):
     unread_count: int
 
 
+class DashboardTrendsResponse(BaseModel):
+    """Dashboard trends data"""
+    scans_trend: List[dict]
+    reports_trend: List[dict]
+    period: str
+
+class StateStatsResponse(BaseModel):
+    """Stats per state"""
+    state: str
+    scan_count: int
+    counterfeit_count: int
+    risk_level: str
+
+class DashboardStatesResponse(BaseModel):
+    """Dashboard states breakdown"""
+    states: List[StateStatsResponse]
+
 class DashboardKPIResponse(BaseModel):
     """Dashboard KPI cards"""
     total_scans_month: int
@@ -161,6 +179,26 @@ class DashboardKPIResponse(BaseModel):
     revenue_month: float
     top_threat_state: str
     recent_alerts: List[AlertResponse]
+
+class EvidenceFileResponse(BaseModel):
+    """Evidence file detail"""
+    id: str
+    file_url: str
+    file_type: str
+    file_size: int
+    uploaded_at: datetime
+
+class EvidenceCaseResponse(BaseModel):
+    """Evidence for a specific case"""
+    case_id: str
+    files: List[EvidenceFileResponse]
+    zip_url: Optional[str] = None
+
+class EvidenceVaultResponse(BaseModel):
+    """Evidence vault overview"""
+    files: List[EvidenceFileResponse]
+    total: int
+    stats: dict
 
 
 class HeatmapCoordinateResponse(BaseModel):
