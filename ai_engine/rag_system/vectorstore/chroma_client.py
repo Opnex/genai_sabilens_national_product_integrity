@@ -30,8 +30,8 @@ DISTANCE METRIC: cosine
 """
 
 import chromadb
-from config.settings import settings
-from ingestion.schema import ProductChunk
+from ai_engine.rag_system.config.settings import settings
+from ai_engine.rag_system.ingestion.schema import ProductChunk
 
 
 class ChromaStore:

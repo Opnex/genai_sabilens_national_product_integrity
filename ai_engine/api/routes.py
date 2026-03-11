@@ -28,10 +28,11 @@ from fastapi  import APIRouter, HTTPException, Query
 from pydantic import BaseModel, Field
 from typing   import Optional
 
-from retrieval.retriever import ProductRetriever
-from retrieval.regulatory_scorer import compute_verification_score
+from ai_engine.rag_system.retrieval.retriever  import ProductRetriever
+from ai_engine.rag_system.utils.nafdac_normalizer import normalize_nafdac_no
+from ai_engine.agent.agent_scorer import compute_verification_score   # ← agent version
 
-# ── Router setup ──────────────────────────────────────────────────────────────
+#  Router setup 
 
 router = APIRouter(prefix="/verify", tags=["Product Verification"])
 
@@ -40,7 +41,7 @@ router = APIRouter(prefix="/verify", tags=["Product Verification"])
 _retriever = ProductRetriever()
 
 
-# ── Request / Response schemas ─────────────────────────────────────────────────
+# Request / Response schemas
 
 class VerifyRequest(BaseModel):
     """
@@ -117,6 +118,10 @@ class VerifyResponse(BaseModel):
         default=0,
         description="Number of DB records sharing this NAFDAC number."
     )
+    # Agent fields (added for agentic RAG)
+    reasoning_trace:      list  = Field(default_factory=list)
+    tools_called:         list  = Field(default_factory=list)
+    fallback_used:        bool  = Field(default=False)
 
 
 class SearchRequest(BaseModel):
@@ -158,9 +163,17 @@ async def verify_product(request: VerifyRequest):
     Called by: D1 Backend → D3 Mobile App scan flow
     """
     try:
-        records = _retriever.retrieve_by_nafdac_no(request.nafdac_no)
+        nafdac_no = normalize_nafdac_no(request.nafdac_no)
+
+        if not nafdac_no:
+            raise HTTPException(
+                status_code=400,
+                detail=f"Invalid NAFDAC number format: '{request.nafdac_no}'",
+            )
+
+        records = _retriever.retrieve_by_nafdac_no(nafdac_no)
         result  = compute_verification_score(
-            nafdac_no           = request.nafdac_no,
+            nafdac_no           = nafdac_no,
             scanned_subcategory = request.scanned_subcategory,
             db_records          = records,
         )
@@ -190,6 +203,14 @@ async def lookup_nafdac(nafdac_no: str):
 
     Called by: D5 Dashboard, NAFDAC enforcement portal
     """
+    nafdac_no = normalize_nafdac_no(nafdac_no)
+
+    if not nafdac_no:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Invalid NAFDAC number format: '{nafdac_no}'",
+        )
+
     records = _retriever.retrieve_by_nafdac_no(nafdac_no)
 
     if not records:
@@ -227,46 +248,34 @@ async def search_products(request: SearchRequest):
     ]
 
 
-VALID_SUBCATEGORIES = [
-    "Cereals and Cereal Products",
-    "Cereals"
-    "Cosmetics",
-    "Fats and oils, and Fat Emulsions",
-    "Salts, Spices, Soups, Sauces, Salads and Seasoning",
-    "Beverages",
-    "Sweeteners",
-]
-
 @router.get("/category/{subcategory}", response_model=list[dict])
 async def get_products_by_category(
     subcategory: str,
     n: int = Query(default=20, ge=1, le=100, description="Max results"),
 ):
-    """ Return all registered products in a given subcategory. Valid subcategory values: 'Cereals and Cereal Products' 'Cosmetics' 'Fats and oils, and Fat Emulsions' 'Salts, Spices, Soups, Sauces, Salads and Seasoning' 'Beverages' 'Sweeteners' Called by: D5 Dashboard (category browse), A4 Fusion Engine """
-    normalized_input = subcategory.strip().lower()
+    """
+    Return all registered products in a given subcategory.
 
-    # Find the correctly-cased subcategory from VALID_SUBCATEGORIES
-    matched_category = next(
-        (cat for cat in VALID_SUBCATEGORIES if cat.lower() == normalized_input),
-        None
-    )
+    Valid subcategory values:
+      'Cereals and Cereal Products'
+      'Cosmetics'
+      'Fats and oils, and Fat Emulsions'
+      'Salts, Spices, Soups, Sauces, Salads and Seasoning'
+      'Beverages'
+      'Sweeteners'
 
-    if not matched_category:
-        raise HTTPException(
-            status_code=404,
-            detail=f"Invalid subcategory '{subcategory}'. "
-                   f"Valid options: {', '.join(VALID_SUBCATEGORIES)}",
-        )
-
-    # Query retriever with the correctly-cased category
-    records = _retriever.retrieve_by_subcategory(subcategory=matched_category, n=n)
+    Called by: D5 Dashboard (category browse), A4 Fusion Engine
+    """
+    records = _retriever.retrieve_by_subcategory(
+    subcategory=subcategory.strip().lower(),
+    n=n
+)
 
     if not records:
         raise HTTPException(
-            status_code=404,
-            detail=f"No products found for subcategory '{matched_category}'.",
+            status_code = 404,
+            detail      = f"No products found for subcategory '{subcategory}'.",
         )
-
     return records
 
 
