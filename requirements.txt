@@ -88,3 +88,9 @@ tzdata==2025.3
 urllib3==2.6.3
 visualdl==2.5.3
 Werkzeug==3.1.6
+ultralytics==8.4.19
+ultralytics-thop==2.0.18
+urllib3==2.6.3
+numpy==1.26.4
+opencv-python==4.6.0.66
+rapidfuzz==3.14.3
