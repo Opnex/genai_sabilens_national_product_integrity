@@ -26,12 +26,11 @@ SEPARATION OF CONCERNS
   into similarity scores.  It does NOT score products, detect mismatches,
   or make pass/fail verdicts — that belongs in regulatory_scorer.py.
 """
-
-from vectorstore.chroma_client import ChromaStore
-from vectorstore.embedder      import Embedder
-from utils.nafdac_normalizer   import normalize_nafdac_no
-from config.settings           import settings
-
+from ai_engine.rag_system.vectorstore.chroma_client import ChromaStore
+from ai_engine.rag_system.vectorstore.embedder import Embedder
+from ai_engine.rag_system.utils.nafdac_normalizer import normalize_nafdac_no
+from ai_engine.rag_system.config.settings  import settings
+from ai_engine.rag_system.retrieval.subcategory_alignment import normalize_subcategory
 
 class ProductRetriever:
     """
@@ -173,37 +172,39 @@ class ProductRetriever:
         """
         Return all products belonging to a specific subcategory.
 
-        Used by:
-          • D5 Dashboard   — category browse panel
-          • A4 Fusion      — gathering category context for cross-validation
-          • /category API  — endpoint for manufacturer intelligence portal
-
-        Valid subcategory values (from real data):
-          'Cereals and Cereal Products'
-          'Cosmetics'
-          'Fats and oils, and Fat Emulsions'
-          'Salts, Spices, Soups, Sauces, Salads and Seasoning'
-          'Beverages'
-          'Sweeteners'
-
-        Args:
-            subcategory: Exact subcategory string (case-sensitive as stored).
-            n:           Maximum records to return.
-
-        Returns:
-            List of metadata dicts for products in that subcategory.
-            Empty list if no records found.
+        Handles:
+        • lowercase
+        • UPPERCASE
+        • mixed casing
+        • alias words (e.g. toothpaste → Cosmetics)
         """
+
+        if not subcategory or not subcategory.strip():
+            return []
+
+        # Normalize user input using alias system
+        canonical = normalize_subcategory(subcategory)
+
         results = self.store.query(
-            query_embedding = self.embedder.embed_single(subcategory),
-            n_results       = n,
-            where           = {"subcategory": subcategory},
+            query_embedding=self.embedder.embed_single(canonical),
+            n_results=n,
         )
 
         if not results["ids"] or not results["ids"][0]:
             return []
 
-        return results["metadatas"][0]
+        # Filter manually to avoid casing issues in metadata
+        matches = []
+        for meta in results["metadatas"][0]:
+            db_subcat = normalize_subcategory(meta.get("subcategory", ""))
+
+            if db_subcat == canonical:
+                matches.append(meta)
+
+            if len(matches) >= n:
+                break
+
+        return matches
 
     # ── Strategy 4: Applicant / manufacturer search ───────────────────────────
 

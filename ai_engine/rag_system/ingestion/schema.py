@@ -88,6 +88,7 @@ class NAFDACEntry:
     product_name: str
     product_name_upper: str
     subcategory: str
+    subcategory_lower: str         
     presentation: str
     applicant_name: str
     country: str

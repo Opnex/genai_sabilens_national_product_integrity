@@ -47,7 +47,7 @@ import json
 from pathlib import Path
 from typing import Tuple
 
-from ingestion.schema import NAFDACEntry, ProductChunk
+from ai_engine.rag_system.ingestion.schema import NAFDACEntry, ProductChunk
 
 
 def _build_text(entry: NAFDACEntry) -> str:
