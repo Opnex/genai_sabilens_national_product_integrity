@@ -38,11 +38,11 @@ def run_ingestion() -> None:
       Load Excel → Build chunks → Save JSON → Embed → Upsert to ChromaDB
     """
     # ── Local imports keep startup fast when running --mode serve ────────────
-    from ingestion.excel_loader  import load_database
-    from ingestion.chunk_builder import build_chunks, save_chunks
-    from vectorstore.chroma_client import ChromaStore
-    from vectorstore.embedder import Embedder
-    from config.settings import settings
+    from ai_engine.rag_system.ingestion.excel_loader  import load_database
+    from ai_engine.rag_system.ingestion.chunk_builder import build_chunks, save_chunks
+    from ai_engine.rag_system.vectorstore.chroma_client import ChromaStore
+    from ai_engine.rag_system.vectorstore.embedder import Embedder
+    from ai_engine.rag_system.config.settings import settings
 
     print("\n" + "=" * 70)
     print("  SabiLens — NAFDAC Food Product RAG Ingestion Pipeline")
@@ -105,7 +105,7 @@ def run_ingestion() -> None:
 def run_server() -> None:
     """Start the FastAPI verification server via uvicorn."""
     import uvicorn
-    from config.settings import settings
+    from ai_engine.rag_system.config.settings import settings
 
     print("\n" + "=" * 70)
     print(f"  SabiLens — NAFDAC Verification API")
@@ -114,10 +114,10 @@ def run_server() -> None:
     print("=" * 70 + "\n")
 
     uvicorn.run(
-        "api.app:app",
+        "ai_engine.api.app:app",
         host      = settings.API_HOST,
         port      = settings.API_PORT,
-        reload    = False,
+        reload    = True,
         log_level = "info",
     )
 
@@ -148,4 +148,5 @@ Examples:
 
 
 if __name__ == "__main__":
+    print("MAIN.PY STARTED")
     main()

@@ -15,8 +15,8 @@ Interactive docs:
 """
 
 from fastapi import FastAPI
-from config.settings import settings
-from api.routes import router
+from ai_engine.rag_system.config.settings import settings
+from ai_engine.api.routes import router
 
 
 def create_app() -> FastAPI:
