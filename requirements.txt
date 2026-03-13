@@ -94,6 +94,5 @@ urllib3==2.6.3
 numpy==1.26.4
 opencv-python==4.6.0.66
 rapidfuzz==3.14.3
-
 llama-index-core
 5f60d4f4dc9bd76535ffba043d5ff34fb19f0883
