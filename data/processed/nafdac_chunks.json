@@ -1,0 +1,302 @@
+[
+  {
+    "chunk_id": "821a970f676e76a556a8f7ecfeab122c",
+    "text": "Product: KELLOGG'S CORN FLAKES. NAFDAC No: A8-4114. Category: Cereals and Cereal Products. Applicant: KELLOGG TOLARAM NIGERIA LIMTED. Manufacturer: KT LFTZ ENTERPRISE. Presentation: 300G HARDBOARD PACK. Country: Nigeria. Expiry Date: 2029-07-30.",
+    "metadata": {
+      "nafdac_no": "A8-4114",
+      "nafdac_no_clean": "A8-4114",
+      "product_name": "KELLOGG'S CORN FLAKES",
+      "product_name_upper": "KELLOGG'S CORN FLAKES",
+      "subcategory": "Cereals and Cereal Products",
+      "presentation": "300G HARDBOARD PACK",
+      "applicant_name": "KELLOGG TOLARAM NIGERIA LIMTED",
+      "country": "Nigeria",
+      "manufacturer": "KT LFTZ ENTERPRISE",
+      "expiry_date_raw": "2029-07-30 00:00:00",
+      "expiry_date_iso": "2029-07-30"
+    },
+    "subcategory": "Cereals and Cereal Products",
+    "nafdac_no_clean": "A8-4114",
+    "expiry_date_iso": "2029-07-30"
+  },
+  {
+    "chunk_id": "f85518f6d5dbc4f08bbae253ccc68415",
+    "text": "Product: KELLOGG'S COCO POPS. NAFDAC No: A8-2361. Category: Cereals and Cereal Products. Applicant: KELLOGG TOLARAM NIGERIA LIMTED. Manufacturer: KT LFTZ ENTERPRISE. Presentation: 360G HARDBOARD PACK. Country: Nigeria. Expiry Date: 2029-07-30.",
+    "metadata": {
+      "nafdac_no": "A8-2361",
+      "nafdac_no_clean": "A8-2361",
+      "product_name": "KELLOGG'S COCO POPS",
+      "product_name_upper": "KELLOGG'S COCO POPS",
+      "subcategory": "Cereals and Cereal Products",
+      "presentation": "360G HARDBOARD PACK",
+      "applicant_name": "KELLOGG TOLARAM NIGERIA LIMTED",
+      "country": "Nigeria",
+      "manufacturer": "KT LFTZ ENTERPRISE",
+      "expiry_date_raw": "2029-07-30 00:00:00",
+      "expiry_date_iso": "2029-07-30"
+    },
+    "subcategory": "Cereals and Cereal Products",
+    "nafdac_no_clean": "A8-2361",
+    "expiry_date_iso": "2029-07-30"
+  },
+  {
+    "chunk_id": "97a32cc0aac258fba90fb3b1cc365cd1",
+    "text": "Product: LIPTON YELLOW LABEL TEA. NAFDAC No: 01-0132. Category: Beverages. Applicant: UNILEVER NIGERIA PLC. Manufacturer: UNILEVER NIG. PLC. Presentation: 25 x 2.0g in Hard board pack. Country: Nigeria. Expiry Date: 2026-03-28.",
+    "metadata": {
+      "nafdac_no": "01-0132",
+      "nafdac_no_clean": "01-0132",
+      "product_name": "LIPTON YELLOW LABEL TEA",
+      "product_name_upper": "LIPTON YELLOW LABEL TEA",
+      "subcategory": "Beverages",
+      "presentation": "25 x 2.0g in Hard board pack",
+      "applicant_name": "UNILEVER NIGERIA PLC",
+      "country": "Nigeria",
+      "manufacturer": "UNILEVER NIG. PLC",
+      "expiry_date_raw": "2026-03-28 00:00:00",
+      "expiry_date_iso": "2026-03-28"
+    },
+    "subcategory": "Beverages",
+    "nafdac_no_clean": "01-0132",
+    "expiry_date_iso": "2026-03-28"
+  },
+  {
+    "chunk_id": "d6b3dfc1e41a60724761debf078df620",
+    "text": "Product: Closeup Complete Fresh Protection Toothpaste. NAFDAC No: A2-5334. Category: Cosmetics. Applicant: UNILEVER NIGERIA PLC. Manufacturer: UNILEVER NIGERIA PLC. Presentation: 130G HARDBOARD PACK. Country: Nigeria. Expiry Date: 2031-01-26.",
+    "metadata": {
+      "nafdac_no": "A2-5334",
+      "nafdac_no_clean": "A2-5334",
+      "product_name": "Closeup Complete Fresh Protection Toothpaste",
+      "product_name_upper": "CLOSEUP COMPLETE FRESH PROTECTION TOOTHPASTE",
+      "subcategory": "Cosmetics",
+      "presentation": "130G HARDBOARD PACK",
+      "applicant_name": "UNILEVER NIGERIA PLC",
+      "country": "Nigeria",
+      "manufacturer": "UNILEVER NIGERIA PLC",
+      "expiry_date_raw": "2031-01-26 00:00:00",
+      "expiry_date_iso": "2031-01-26"
+    },
+    "subcategory": "Cosmetics",
+    "nafdac_no_clean": "A2-5334",
+    "expiry_date_iso": "2031-01-26"
+  },
+  {
+    "chunk_id": "1dc6140870b151355fea84c0cb346228",
+    "text": "Product: DANGOTE SUGAR REFINED GRANULATED WHITE SUGAR. NAFDAC No: A8-100798. Category: Sweeteners. Applicant: DANGOTE SUGAR REFINERY PLC. Manufacturer: Dangote Sugar refinery Plc. Presentation: SACHET. Country: Nigeria. Expiry Date: 2027-01-26.",
+    "metadata": {
+      "nafdac_no": "A8-100798",
+      "nafdac_no_clean": "A8-100798",
+      "product_name": "DANGOTE SUGAR REFINED GRANULATED WHITE SUGAR",
+      "product_name_upper": "DANGOTE SUGAR REFINED GRANULATED WHITE SUGAR",
+      "subcategory": "Sweeteners",
+      "presentation": "SACHET",
+      "applicant_name": "DANGOTE SUGAR REFINERY PLC",
+      "country": "Nigeria",
+      "manufacturer": "Dangote Sugar refinery Plc",
+      "expiry_date_raw": "2027-01-26 00:00:00",
+      "expiry_date_iso": "2027-01-26"
+    },
+    "subcategory": "Sweeteners",
+    "nafdac_no_clean": "A8-100798",
+    "expiry_date_iso": "2027-01-26"
+  },
+  {
+    "chunk_id": "5c835b9b03e1cf66f438f08798816e81",
+    "text": "Product: GOLDEN PENNY PASTA SPAGHETTINI. NAFDAC No: A1-0291. Category: Cereals and Cereal Products. Applicant: GOLDEN PASTA ( A DIVISION OF FLOUR MILLS OF NIGERIA PLC.). Manufacturer: Flour Mills of Nigeria Plc (Golden Pasta Division). Presentation: GOLDEN PENNY PASTA SPAGHETTINI PACKED INTO 200G; 220G; 250G; 300G 400G; 450G; 500G; 600G; 700G; 800G; 900G & 1KG SACHET. Country: Nigeria. Expiry Date: 2028-12-20.",
+    "metadata": {
+      "nafdac_no": "A1-0291",
+      "nafdac_no_clean": "A1-0291",
+      "product_name": "GOLDEN PENNY PASTA SPAGHETTINI",
+      "product_name_upper": "GOLDEN PENNY PASTA SPAGHETTINI",
+      "subcategory": "Cereals and Cereal Products",
+      "presentation": "GOLDEN PENNY PASTA SPAGHETTINI PACKED INTO 200G; 220G; 250G; 300G 400G; 450G; 500G; 600G; 700G; 800G; 900G & 1KG SACHET",
+      "applicant_name": "GOLDEN PASTA ( A DIVISION OF FLOUR MILLS OF NIGERIA PLC.)",
+      "country": "Nigeria",
+      "manufacturer": "Flour Mills of Nigeria Plc (Golden Pasta Division)",
+      "expiry_date_raw": "2028-12-20 00:00:00",
+      "expiry_date_iso": "2028-12-20"
+    },
+    "subcategory": "Cereals and Cereal Products",
+    "nafdac_no_clean": "A1-0291",
+    "expiry_date_iso": "2028-12-20"
+  },
+  {
+    "chunk_id": "f428507aaa2116d8e45e58f1a6b2c00f",
+    "text": "Product: GOLDEN TERRA SOYA OIL. NAFDAC No: A8-4890. Category: Fats and oils, and Fat Emulsions. Applicant: WEST AFRICAN SOY INDUSTRIES LIMITED. Manufacturer: WEST AFRICAN SOY INUSTRIES LTD.. Presentation: CLEAR YELLOWISH OIL IN GOLDEN YELLOW KEGS. Country: Nigeria. Expiry Date: 2029-12-17.",
+    "metadata": {
+      "nafdac_no": "A8-4890",
+      "nafdac_no_clean": "A8-4890",
+      "product_name": "GOLDEN TERRA SOYA OIL",
+      "product_name_upper": "GOLDEN TERRA SOYA OIL",
+      "subcategory": "Fats and oils, and Fat Emulsions",
+      "presentation": "CLEAR YELLOWISH OIL IN GOLDEN YELLOW KEGS",
+      "applicant_name": "WEST AFRICAN SOY INDUSTRIES LIMITED",
+      "country": "Nigeria",
+      "manufacturer": "WEST AFRICAN SOY INUSTRIES LTD.",
+      "expiry_date_raw": "2029-12-17 00:00:00",
+      "expiry_date_iso": "2029-12-17"
+    },
+    "subcategory": "Fats and oils, and Fat Emulsions",
+    "nafdac_no_clean": "A8-4890",
+    "expiry_date_iso": "2029-12-17"
+  },
+  {
+    "chunk_id": "d5596e4cc878fae26bb70c781c8826c3",
+    "text": "Product: INDOMIE INSTANT NOODLES CHICKEN FLAVOR. NAFDAC No: 01-0877. Category: Cereals and Cereal Products. Applicant: DUFIL PRIMA FOODS LTD. Manufacturer: DUFIL PRIMA FOODS LTD. Presentation: INSTANT NOODLE. Country: Nigeria. Expiry Date: 2027-01-26.",
+    "metadata": {
+      "nafdac_no": "01-0877",
+      "nafdac_no_clean": "01-0877",
+      "product_name": "INDOMIE INSTANT NOODLES CHICKEN FLAVOR",
+      "product_name_upper": "INDOMIE INSTANT NOODLES CHICKEN FLAVOR",
+      "subcategory": "Cereals and Cereal Products",
+      "presentation": "INSTANT NOODLE",
+      "applicant_name": "DUFIL PRIMA FOODS LTD",
+      "country": "Nigeria",
+      "manufacturer": "DUFIL PRIMA FOODS LTD",
+      "expiry_date_raw": "2027-01-26 00:00:00",
+      "expiry_date_iso": "2027-01-26"
+    },
+    "subcategory": "Cereals and Cereal Products",
+    "nafdac_no_clean": "01-0877",
+    "expiry_date_iso": "2027-01-26"
+  },
+  {
+    "chunk_id": "675f0adb2adb88d49ddea0d489246a8c",
+    "text": "Product: PEPPE TERRA HERBS; SPICES; SEASONING; & TOMATO FLAVOUR COOKING PASTE. NAFDAC No: A8-103753. Category: Salts, Spices, Soups, Sauces, Salads and Seasoning. Applicant: WEST AFRICAN CUBES LIMITED. Manufacturer: WEST AFRICAN CUBES LIMITED. Presentation: 60g paste in a sachet. Country: Nigeria. Expiry Date: 2029-09-24.",
+    "metadata": {
+      "nafdac_no": "A8-103753",
+      "nafdac_no_clean": "A8-103753",
+      "product_name": "PEPPE TERRA HERBS; SPICES; SEASONING; & TOMATO FLAVOUR COOKING PASTE",
+      "product_name_upper": "PEPPE TERRA HERBS; SPICES; SEASONING; & TOMATO FLAVOUR COOKING PASTE",
+      "subcategory": "Salts, Spices, Soups, Sauces, Salads and Seasoning",
+      "presentation": "60g paste in a sachet",
+      "applicant_name": "WEST AFRICAN CUBES LIMITED",
+      "country": "Nigeria",
+      "manufacturer": "WEST AFRICAN CUBES LIMITED",
+      "expiry_date_raw": "2029-09-24 00:00:00",
+      "expiry_date_iso": "2029-09-24"
+    },
+    "subcategory": "Salts, Spices, Soups, Sauces, Salads and Seasoning",
+    "nafdac_no_clean": "A8-103753",
+    "expiry_date_iso": "2029-09-24"
+  },
+  {
+    "chunk_id": "8283554bd144e2ca5736da1a52d0b3b8",
+    "text": "Product: Pepsodent triple protection 123 complete. NAFDAC No: 02-8608. Category: Cosmetics. Applicant: UNILEVER NIGERIA PLC. Manufacturer: UNILEVER NIGERIA PLC. Presentation: 130G HARDBOARD PACK. Country: Nigeria. Expiry Date: 2029-04-29.",
+    "metadata": {
+      "nafdac_no": "02-8608",
+      "nafdac_no_clean": "02-8608",
+      "product_name": "Pepsodent triple protection 123 complete",
+      "product_name_upper": "PEPSODENT TRIPLE PROTECTION 123 COMPLETE",
+      "subcategory": "Cosmetics",
+      "presentation": "130G HARDBOARD PACK",
+      "applicant_name": "UNILEVER NIGERIA PLC",
+      "country": "Nigeria",
+      "manufacturer": "UNILEVER NIGERIA PLC",
+      "expiry_date_raw": "2029-04-29 00:00:00",
+      "expiry_date_iso": "2029-04-29"
+    },
+    "subcategory": "Cosmetics",
+    "nafdac_no_clean": "02-8608",
+    "expiry_date_iso": "2029-04-29"
+  },
+  {
+    "chunk_id": "f28b41871d99ff377424338aaa794ec7",
+    "text": "Product: Rexona Xtra Cool. NAFDAC No: A2-102856. Category: Cosmetics. Applicant: UNILEVER NIGERIA PLC. Manufacturer: UNILEVER NIGERIA PLC. Presentation: 5OML PET Bottle. Country: Nigeria. Expiry Date: 2028-12-20.",
+    "metadata": {
+      "nafdac_no": "A2-102856",
+      "nafdac_no_clean": "A2-102856",
+      "product_name": "Rexona Xtra Cool",
+      "product_name_upper": "REXONA XTRA COOL",
+      "subcategory": "Cosmetics",
+      "presentation": "5OML PET Bottle",
+      "applicant_name": "UNILEVER NIGERIA PLC",
+      "country": "Nigeria",
+      "manufacturer": "UNILEVER NIGERIA PLC",
+      "expiry_date_raw": "2028-12-20 00:00:00",
+      "expiry_date_iso": "2028-12-20"
+    },
+    "subcategory": "Cosmetics",
+    "nafdac_no_clean": "A2-102856",
+    "expiry_date_iso": "2028-12-20"
+  },
+  {
+    "chunk_id": "e738ef4bf3b79536be15111be40b67ca",
+    "text": "Product: SEDOSO VEGETABLE OIL PALM OLEIN. NAFDAC No: A8-8893L. Category: Fats and oils, and Fat Emulsions. Applicant: SEDOSO AGRO ALLIED COMPANY LIMITED. Manufacturer: SEDOSO AGRO ALLIED COMPANY LIMITED. Presentation: GOLDEN COLORED LIQUID IN LABELED AND CORKED PET BOTTLES 3L. Country: Nigeria. Expiry Date: 2026-12-17.",
+    "metadata": {
+      "nafdac_no": "A8-8893L",
+      "nafdac_no_clean": "A8-8893L",
+      "product_name": "SEDOSO VEGETABLE OIL PALM OLEIN",
+      "product_name_upper": "SEDOSO VEGETABLE OIL PALM OLEIN",
+      "subcategory": "Fats and oils, and Fat Emulsions",
+      "presentation": "GOLDEN COLORED LIQUID IN LABELED AND CORKED PET BOTTLES 3L",
+      "applicant_name": "SEDOSO AGRO ALLIED COMPANY LIMITED",
+      "country": "Nigeria",
+      "manufacturer": "SEDOSO AGRO ALLIED COMPANY LIMITED",
+      "expiry_date_raw": "2026-12-17 00:00:00",
+      "expiry_date_iso": "2026-12-17"
+    },
+    "subcategory": "Fats and oils, and Fat Emulsions",
+    "nafdac_no_clean": "A8-8893L",
+    "expiry_date_iso": "2026-12-17"
+  },
+  {
+    "chunk_id": "3531dd42abfc0e9110b82b8009e15a49",
+    "text": "Product: TERRA CHICKEN FLAVOR SEASONING CUBE. NAFDAC No: 08-8836. Category: Salts, Spices, Soups, Sauces, Salads and Seasoning. Applicant: WEST AFRICAN CUBES LIMITED. Manufacturer: WEST AFRICAN CUBES LIMITED. Presentation: Cubes in a sachet packed in carton. Country: Nigeria. Expiry Date: 2029-07-30.",
+    "metadata": {
+      "nafdac_no": "08-8836",
+      "nafdac_no_clean": "08-8836",
+      "product_name": "TERRA CHICKEN FLAVOR SEASONING CUBE",
+      "product_name_upper": "TERRA CHICKEN FLAVOR SEASONING CUBE",
+      "subcategory": "Salts, Spices, Soups, Sauces, Salads and Seasoning",
+      "presentation": "Cubes in a sachet packed in carton",
+      "applicant_name": "WEST AFRICAN CUBES LIMITED",
+      "country": "Nigeria",
+      "manufacturer": "WEST AFRICAN CUBES LIMITED",
+      "expiry_date_raw": "2029-07-30 00:00:00",
+      "expiry_date_iso": "2029-07-30"
+    },
+    "subcategory": "Salts, Spices, Soups, Sauces, Salads and Seasoning",
+    "nafdac_no_clean": "08-8836",
+    "expiry_date_iso": "2029-07-30"
+  },
+  {
+    "chunk_id": "786cd1726cb0571a355114cd8e61dcb4",
+    "text": "Product: Vaseline blueseal pure petroleum jelly original. NAFDAC No: 02-0385. Category: Cosmetics. Applicant: UNILEVER NIGERIA PLC. Manufacturer: UNILEVER NIGERIA PLC. Presentation: Light yellow gel with a blue cover and transparent body PET 225ml. Country: Nigeria. Expiry Date: 2028-12-20.",
+    "metadata": {
+      "nafdac_no": "02-0385",
+      "nafdac_no_clean": "02-0385",
+      "product_name": "Vaseline blueseal pure petroleum jelly original",
+      "product_name_upper": "VASELINE BLUESEAL PURE PETROLEUM JELLY ORIGINAL",
+      "subcategory": "Cosmetics",
+      "presentation": "Light yellow gel with a blue cover and transparent body PET 225ml",
+      "applicant_name": "UNILEVER NIGERIA PLC",
+      "country": "Nigeria",
+      "manufacturer": "UNILEVER NIGERIA PLC",
+      "expiry_date_raw": "2028-12-20 00:00:00",
+      "expiry_date_iso": "2028-12-20"
+    },
+    "subcategory": "Cosmetics",
+    "nafdac_no_clean": "02-0385",
+    "expiry_date_iso": "2028-12-20"
+  },
+  {
+    "chunk_id": "c768e62f62493a9c8d1f7d09a9faa1d7",
+    "text": "Product: VASELINE EVENTONE B3 LOTION. NAFDAC No: A2-106037. Category: Cosmetics. Applicant: UNILEVER SOUTH AFRICA (PTY) LIMITED. Manufacturer: UNILEVER SOUTH AFRICA (PTY) LIMITED. Presentation: Blue cover with a orange body PET 400ml. Country: Nigeria. Expiry Date: 2030-01-29.",
+    "metadata": {
+      "nafdac_no": "A2-106037",
+      "nafdac_no_clean": "A2-106037",
+      "product_name": "VASELINE EVENTONE B3 LOTION",
+      "product_name_upper": "VASELINE EVENTONE B3 LOTION",
+      "subcategory": "Cosmetics",
+      "presentation": "Blue cover with a orange body PET 400ml",
+      "applicant_name": "UNILEVER SOUTH AFRICA (PTY) LIMITED",
+      "country": "Nigeria",
+      "manufacturer": "UNILEVER SOUTH AFRICA (PTY) LIMITED",
+      "expiry_date_raw": "2030-01-29 00:00:00",
+      "expiry_date_iso": "2030-01-29"
+    },
+    "subcategory": "Cosmetics",
+    "nafdac_no_clean": "A2-106037",
+    "expiry_date_iso": "2030-01-29"
+  }
+]
