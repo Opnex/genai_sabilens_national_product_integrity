@@ -33,7 +33,7 @@ NORMALISATION
 """
 
 from sentence_transformers import SentenceTransformer
-from config.settings import settings
+from ai_engine.rag_system.config.settings import settings
 
 
 class Embedder:

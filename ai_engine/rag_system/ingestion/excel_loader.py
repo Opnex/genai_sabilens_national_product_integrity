@@ -31,9 +31,9 @@ import pandas as pd
 from pathlib import Path
 from typing import Tuple
 
-from config.settings import settings
-from ingestion.schema import NAFDACEntry
-from utils.nafdac_normalizer import normalize_nafdac_no
+from ai_engine.rag_system.config.settings import settings
+from ai_engine.rag_system.ingestion.schema import NAFDACEntry
+from ai_engine.rag_system.utils.nafdac_normalizer import normalize_nafdac_no
 
 
 # ── Expected source columns (lowercase, post-header-normalisation) ─────────────
@@ -143,8 +143,9 @@ def _build_entry(row: pd.Series, warnings: list) -> NAFDACEntry:
     """
     Construct a single NAFDACEntry from a cleaned DataFrame row.
 
-    Normalises the nafdac_no, parses the expiry date, and uppercases the
-    product_name for case-insensitive search support.
+    Normalises the nafdac_no, parses the expiry date, uppercases the
+    product_name for case-insensitive search support, and adds a lowercase
+    subcategory for case-insensitive retrieval.
 
     Args:
         row:      A single row from the cleaned DataFrame (as a pd.Series).
@@ -171,12 +172,15 @@ def _build_entry(row: pd.Series, warnings: list) -> NAFDACEntry:
     expiry_raw   = str(row.get("expiry_date", "")).strip()
     expiry_iso   = _parse_expiry_date(expiry_raw)
 
+    subcat_raw = str(row.get("subcategory", "Unknown")).strip() or "Unknown"
+
     return NAFDACEntry(
         nafdac_no          = raw_nafdac,
         nafdac_no_clean    = clean_nafdac,
         product_name       = product_name,
         product_name_upper = product_name.upper(),
-        subcategory        = str(row.get("subcategory", "Unknown")).strip() or "Unknown",
+        subcategory        = subcat_raw,
+        subcategory_lower  = subcat_raw.lower(),  # ← added for case-insensitive search
         presentation       = str(row.get("presentation", "")).strip(),
         applicant_name     = str(row.get("applicant_name", "")).strip(),
         country            = str(row.get("country", "Nigeria")).strip(),
