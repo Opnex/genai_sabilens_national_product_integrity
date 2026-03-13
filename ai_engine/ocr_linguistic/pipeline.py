@@ -10,12 +10,14 @@ from .metadata_parser import extract_structured_metadata
 from .brand_validator import BrandValidator
 from .structural_validator import StructuralValidator
 from .logger import setup_logger
-
+from pathlib import Path
 
 
 logger = setup_logger("OCR_Linguistic")
+BASE_DIR = Path(__file__).resolve().parents[1]
+MODEL_PATH = BASE_DIR / "models" / "text_model.pkl"
 
-MODEL_PATH = os.getenv("TEXT_MODEL_PATH", "models/text_model.pkl")
+# MODEL_PATH = os.getenv("TEXT_MODEL_PATH", "models/text_model.pkl")
 
 
 # -------------------------
@@ -177,3 +179,51 @@ def _empty_result(damage_score: float) -> dict:
         "ml_score": 1.0,
         "final_text_anomaly_score": 1.0,
     }
+
+# -------------------------
+# Test Runner
+# -------------------------
+if __name__ == "__main__":
+    import sys
+    import json
+ 
+    if len(sys.argv) < 2:
+        print("Usage: python -m ocr_linguistic.pipeline path/to/image.jpg")
+        sys.exit(1)
+ 
+    image_path   = sys.argv[1]
+    damage_score = float(sys.argv[2]) if len(sys.argv) > 2 else 0.0
+ 
+    print(f"\nRunning OCR Pipeline on: {image_path}")
+    print(f"damage_score: {damage_score}\n")
+ 
+    result = run_pipeline(image_path, damage_score)
+ 
+    print("====== Output ===============================================")
+    print(json.dumps(result, indent=2, default=str))
+ 
+    print("\n====== Contract Check ======================================")
+    required = [
+        "source", "metadata", "brand_anomaly",
+        "structural_validation", "rule_score",
+        "ml_score", "final_text_anomaly_score",
+    ]
+    all_ok = True
+    for field in required:
+        val    = result.get(field, "MISSING")
+        status = "CONFIRMED" if val != "MISSING" else "NOT CONFIRMED"
+        if val == "MISSING":
+            all_ok = False
+        label  = str(val) if not isinstance(val, dict) else "{...}"
+        print(f"  {status}  {field}: {label}")
+ 
+    nafdac = result.get("metadata", {}).get("nafdac_number")
+    score  = result.get("final_text_anomaly_score")
+    print(f"\n  nafdac_number extracted : {nafdac}")
+    print(f"  final_text_anomaly_score: {score}  (0.0=clean, 1.0=fake)")
+ 
+    print()
+    if all_ok:
+        print("All contract fields present. A2 output is ready for A4.")
+    else:
+        print("Missing fields — check pipeline output above.")

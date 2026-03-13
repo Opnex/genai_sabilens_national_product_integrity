@@ -55,9 +55,10 @@ AUTHENTIC_PRODUCTS = {
         "brand": "Kellogg's",
         "manufacturer": "Kellogg's"
     },
-    "kellogg's corn flakes 500g": {
+    "kellogg's corn flakes 300g + 45g": {
         "brand": "Kellogg's",
-        "manufacturer": "Kellogg's"
+        "manufacturer": "Kellogg's",
+        "nafdac_category": "Cereals and Cereal Products"
     },
     "kellogg's go grains 500g": {
         "brand": "Kellogg's",
@@ -125,10 +126,11 @@ EXPIRY_PATTERN = re.compile(
 )
 # NAFDAC number in full label text (with surrounding keywords)
 NAFDAC_IN_TEXT_PATTERN = re.compile(
-    r"(?:NAFDAC|REG(?:ISTRATION)?\.?\s*(?:NO\.?|NUMBER)?)\s*:?\s*([A-Z0-9]{1,2}-\d{3,6})",
+    r"(?:NAFDAC\s*(?:REG(?:ISTRATION)?\s*)?(?:NO\.?|NUMBER)?\s*|"
+    r"REG(?:ISTRATION)?\s*(?:NO\.?|NUMBER)\s*)"
+    r":?\s*([A-Z0-9]{1,3}-\d{3,6})",
     re.IGNORECASE
 )
-
 # Batch number in full label text
 BATCH_IN_TEXT_PATTERN = re.compile(
     r"(?:BATCH|LOT|BATCH\s*NO\.?)\s*:?\s*([A-Z0-9]{6,15})",
@@ -181,3 +183,15 @@ REQUIRED_FIELDS = [
     "expiry_date",
     "manufacturer_name",
 ]
+
+# import re
+# pattern = re.compile(
+#     r"(?:NAFDAC\s*(?:REG(?:ISTRATION)?\s*)?(?:NO\.?|NUMBER)?\s*|"
+#     r"REG(?:ISTRATION)?\s*(?:NO\.?|NUMBER)\s*)"
+#     r":?\s*([A-Z0-9]{1,3}-\d{3,6})",
+#     re.IGNORECASE
+# )
+
+# print(pattern.search("NAFDAC REG NO.A8-4114").group(1))   # → A8-4114
+# print(pattern.search("NAFDAC REG NO: A8-4114").group(1))  # → A8-4114
+# print(pattern.search("REG NO: B3-00123").group(1))

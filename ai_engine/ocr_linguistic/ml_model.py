@@ -1,4 +1,5 @@
 import pickle
+from PIL.features import features
 import numpy as np
 import os
 from sklearn.linear_model import LogisticRegression
@@ -16,8 +17,8 @@ class TextAnomalyClassifier:
         self.feature_order = list(X[0].keys())
 
         X_matrix = np.array([
-            [row[f] for f in self.feature_order]
-            for row in X
+        [row[f] for f in self.feature_order]
+        for row in X
         ])
 
         X_scaled = self.scaler.fit_transform(X_matrix)

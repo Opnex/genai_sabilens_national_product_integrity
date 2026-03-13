@@ -15,6 +15,7 @@ def build_feature_vector(
         "brand_anomaly_flag": int(brand_anomaly.get("is_anomaly", False)),
         "nafdac_valid": int(structural_validation.get("nafdac_format_valid", False)),
         "missing_fields_count": len(structural_validation.get("missing_fields", [])),
+        "structural_score":     structural_validation.get("structural_score", 0.0), 
         "ocr_confidence": metadata.get("avg_ocr_confidence", 0.0),
         "damage_score": damage_score,
         "text_length": len(raw_text),
