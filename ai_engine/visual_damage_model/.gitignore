@@ -1,7 +1,0 @@
-env
-runs
-__pycache__
-*.pyc
-.pt
-.pkl
-yolov8n.pt
