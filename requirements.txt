@@ -79,6 +79,18 @@ typing_extensions==4.12.2
 torch==2.3.1
 torchvision==0.18.1
 ultralytics==8.1.47
+soupsieve==2.8.3
+termcolor==3.3.0
+threadpoolctl==3.6.0
+tifffile==2025.5.10
+tqdm==4.67.3
+typing_extensions==4.15.0
+tzdata==2025.3
+urllib3==2.6.3
+visualdl==2.5.3
+Werkzeug==3.1.6
+ultralytics==8.4.19
+>>>>>>> 35d7f7a6da418c87de25af796ad4d8c873b24a36
 ultralytics-thop==2.0.18
 opencv-contrib-python==4.6.0.66
 pillow==10.4.0
@@ -147,4 +159,8 @@ pandas==2.2.3
 # If any package tries to upgrade protobuf, run: pip install protobuf==3.20.2
 # ------------------------------------------------------------------------------
 #protobuf==3.20.2
+opencv-python==4.6.0.66
+rapidfuzz==3.14.3
+llama-index-core
+5f60d4f4dc9bd76535ffba043d5ff34fb19f0883
 
