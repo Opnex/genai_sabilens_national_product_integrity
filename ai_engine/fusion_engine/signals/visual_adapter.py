@@ -48,7 +48,7 @@ SCALABILITY NOTES:
 """
 
 from datetime import datetime, timezone
-from config.thresholds import LOGO_MATCH_FLOOR_THRESHOLD
+from ai_engine.fusion_engine.config.thresholds import LOGO_MATCH_FLOOR_THRESHOLD
 
 def adapt(visual_output: dict) -> dict:
     """
@@ -81,12 +81,12 @@ def adapt(visual_output: dict) -> dict:
         override_reason = (
             f"Visual: raw logo similarity ({raw_similarity:.3f}) is below the "
             f"{LOGO_MATCH_FLOOR_THRESHOLD} minimum threshold. "
-            f"Product fails minimum visual match — verdict floored to SUSPICIOUS."
+            f"Product fails minimum visual match - verdict floored to SUSPICIOUS."
         )
 
 
     return {
-        "source":          "Visual_VISUAL",
+        "source":          "VISUAL",
         "fusion_score":    fusion_score, # 0.0-1.0 positive direction
         "raw_confidence":  round(confidence, 4),
         "raw_similarity":  round(raw_similarity, 4),

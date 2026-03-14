@@ -113,7 +113,7 @@ def adapt(ocr_output: dict) -> dict:
         )
 
     return {
-        "source":                  "OCR_Linguistic",
+        "source":                  "OCR",
         "fusion_score":            fusion_score,
         "raw_anomaly_score":       round(raw_anomaly_score, 4),
         "rule_score":             round(rule_score,        4),

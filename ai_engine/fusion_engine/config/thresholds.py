@@ -67,7 +67,7 @@ CONFIDENCE_BANDS = [
 ]
 
 # Override conditions (informational enforced in the three adapters) 
-CRITICAL_REG_STATUSES       = {"NOT_FOUND", "SUBCATEGORY_MISMATCH", "AGENT_ERROR"}
+CRITICAL_REG_STATUSES       = {"NOT_FOUND", "SUBCATEGORY_MISMATCH", "AGENT_ERROR", "EXPIRED"}
 LOGO_MATCH_FLOOR_THRESHOLD = 0.20   # visual raw_similarity below this -> SUSPICIOUS floor
 EXTREME_BLUR_CEILING       = 5.0    # blur_value below this -> RESCAN_REQUIRED
 DAMAGED_SCORE_FLOOR        = 0.40   # damage_score at or above -> DAMAGED weight mode

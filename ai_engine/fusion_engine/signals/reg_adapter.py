@@ -64,7 +64,7 @@ VALID_STATUS_CODES = {
 }
 
 # Status codes that force FAKE - aligned to orchestrator CRITICAL_STATUSES
-CRITICAL_STATUSES = {"NOT_FOUND", "SUBCATEGORY_MISMATCH", "AGENT_ERROR"}
+CRITICAL_STATUSES = {"NOT_FOUND", "SUBCATEGORY_MISMATCH", "AGENT_ERROR", "EXPIRED"}
 
 # Override reason strings - forwarded to evidence and audit panel
 _OVERRIDE_REASONS = {
@@ -80,6 +80,12 @@ _OVERRIDE_REASONS = {
     "AGENT_ERROR": (
         "Regulatory ReAct Agent encountered an unrecoverable error during verification. "
         "Cannot confirm authenticity. System fails closed. Verdict forced to FAKE."
+    ),
+
+    "EXPIRED": (
+    "REG: NAFDAC registration for this product has expired. "
+    "Product may be old stock, repackaged, or counterfeit. "
+    "Verdict forced to FAKE."
     ),
 }
 
@@ -154,7 +160,7 @@ def adapt(reg_output: dict) -> dict:
 
     return {
         #  Core signal 
-        "source":       "A3_RAG",
+        "source":       "REG",
         "fusion_score": round(verification_score, 4),  # 0.0–1.0 positive direction
 
         #  Raw A3 values (preserved for audit) 

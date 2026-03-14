@@ -39,13 +39,13 @@ ERROR HANDLING STRATEGY:
 import traceback
 from datetime import datetime, timezone
 
-from signals.visual_adapter   import adapt as visual_adapt,  validate as visual_validate
-from signals.ocr_adapter      import adapt as ocr_adapt,     validate as ocr_validate
-from signals.reg_adapter      import adapt as reg_adapt,     validate as reg_validate
-from core.fusion_engine       import run_fusion
-from core.decision_classifier import classify
-from core.evidence_packager   import package
-from utils.logger             import setup_logger
+from ai_engine.fusion_engine.signals.visual_adapter   import adapt as visual_adapt,  validate as visual_validate
+from ai_engine.fusion_engine.signals.ocr_adapter      import adapt as ocr_adapt,     validate as ocr_validate
+from ai_engine.fusion_engine.signals.reg_adapter      import adapt as reg_adapt,     validate as reg_validate
+from ai_engine.fusion_engine.core.fusion_engine       import run_fusion
+from ai_engine.fusion_engine.core.decision_classifier import classify
+from ai_engine.fusion_engine.core.evidence_packager   import package
+from ai_engine.fusion_engine.utils.logger             import setup_logger
 
 logger = setup_logger("A4_FusionEngine")
 
