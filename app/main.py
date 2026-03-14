@@ -3,7 +3,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 from app.config import settings
-from app.routers import auth, consumer, company, nafdac
+from app.routers import auth, consumer, company, nafdac, shared
 
 
 @asynccontextmanager
@@ -51,12 +51,12 @@ async def root():
 async def health_check():
     return {"status": "healthy"}
 
-# Include routers (uncomment when routers are created)
-# app.include_router(auth.router, prefix="/api/auth", tags=["Authentication"])
-# app.include_router(consumer.router, prefix="/api/consumer", tags=["Consumer"])
-# app.include_router(company.router, prefix="/api/company", tags=["Company"])
-# app.include_router(nafdac.router, prefix="/api/nafdac", tags=["NAFDAC"])
-# app.include_router(shared.router, prefix="/api/verify", tags=["Verification"])
+#Include routers (uncomment when routers are created)
+app.include_router(auth.router, prefix="/api/auth", tags=["Authentication"])
+app.include_router(consumer.router, prefix="/api/consumer", tags=["Consumer"])
+app.include_router(company.router, prefix="/api/company", tags=["Company"])
+app.include_router(nafdac.router, prefix="/api/nafdac", tags=["NAFDAC"])
+app.include_router(shared.router, prefix="/api/verify", tags=["Verification"])
 
 
 if __name__ == "__main__":

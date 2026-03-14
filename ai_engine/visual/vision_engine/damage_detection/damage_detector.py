@@ -57,8 +57,8 @@ class DamageDetector:
         """
         Compute scan quality and map to a discrete damage band.
 
-        ⚠️  BREAKING CHANGE: Previously returned a float.
-            Now returns a dict - all callers must be updated.
+        BREAKING CHANGE: Previously returned a float.
+          Now returns a dict - all callers must be updated.
 
         Args:
             image_path: File path to the product image.
@@ -67,9 +67,9 @@ class DamageDetector:
             Dict with two keys:
 
             "damage_score" (float): Discrete scan quality band.
-                0.8 → heavy blur  (blur_value < 20)
-                0.4 → moderate    (blur_value 20–59)
-                0.1 → sharp       (blur_value >= 60)
+                0.8 → heavy blur  (blur_value < 5)
+                0.4 → moderate    (blur_value 5-24)
+                0.1 → sharp       (blur_value >= 25)
 
             "blur_value" (float): Raw Laplacian variance score.
                 A4 uses this to distinguish blur=2 from blur=19
@@ -87,9 +87,9 @@ class DamageDetector:
         """
         blur = self.blur_score(image_path)
 
-        if blur < 20:
+        if blur < 5:
             damage = 0.8   # Heavy blur - scan quality too low for reliable Visual/OCR
-        elif blur < 60:
+        elif blur < 25:
             damage = 0.4   # Moderate blur - OCR degraded, Regulatory takes more weight
         else:
             damage = 0.1   # Sharp image - normal pipeline

@@ -23,6 +23,8 @@ BREAKING CHANGE NOTE_:
   If you revert damage_detector.py to the old float return, this file will break.
 """
 
+import sys
+import json
 from vision_engine.similarity.similarity_engine     import SimilarityEngine
 from vision_engine.damage_detection.damage_detector import DamageDetector
 from vision_engine.regions.yolo_detector            import RegionDetector
@@ -31,7 +33,11 @@ from vision_engine.regions.yolo_detector            import RegionDetector
 class VisualPipeline:
 
     def __init__(self):
-        self.sim_engine      = SimilarityEngine("vision_engine/embeddings/reference_embeddings.pkl")
+        import os
+        _BASE = os.path.dirname(os.path.abspath(__file__))
+        self.sim_engine = SimilarityEngine(
+            os.path.join(_BASE, "..", "embeddings", "reference_embeddings.pkl")
+        )
         self.region_detector = RegionDetector()
         self.damage_detector = DamageDetector()
 
@@ -84,6 +90,7 @@ class VisualPipeline:
         regions    = self.region_detector.detect_regions(image_path)
         logo_input = regions["brand_logo"] if "brand_logo" in regions else image_path
 
+
         # Similarity comparison against reference embeddings
         similarity = self.sim_engine.compare(logo_input)
 
@@ -107,3 +114,38 @@ class VisualPipeline:
             "confidence":        round(confidence, 4),
             "verdict":           verdict,
         }
+
+if __name__ == "__main__":
+
+    if len(sys.argv) < 2:
+        print("Usage: python visual_pipeline.py path/to/image.jpg")
+        sys.exit(1)
+
+    image_path = sys.argv[1]
+    print(f"\nRunning VisualPipeline on: {image_path}\n")
+
+    pipeline = VisualPipeline()
+    result   = pipeline.analyze(image_path)
+
+    print("===== Output=======================================")
+    print(json.dumps(result, indent=2))
+
+    print("\n====Contract Check================================")
+    required = [
+        "product", "Visual Similarity", "damage_score",
+        "blur_value", "confidence", "verdict",
+    ]
+    all_ok = True
+    for field in required:
+        val    = result.get(field, "MISSING")
+        status = "CONTRACT FULLFILLED" if val != "MISSING" else "CONTRACT FAILED"
+        if val == "MISSING":
+            all_ok = False
+        print(f"  {status}  {field}: {val}")
+
+    print()
+    if all_ok:
+        print("All contract fields present. Visual output is ready for Fusion.")
+    else:
+        print("Missing fields: Fusion visual_adapter will use defaults for those.")
+
