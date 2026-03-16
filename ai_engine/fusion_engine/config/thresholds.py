@@ -11,7 +11,7 @@ SCORE SCALE: 0.0 - 1.0 (aligned to orchestrator/pipeline.py)
 
 VERDICT BANDS:
   ┌─────────────────────────────────────────────────────┐
-  │  >= 0.75  ->  AUTHENTIC         Safe to purchase    │
+  │  >= 0.72  ->  AUTHENTIC         Safe to purchase    │
   │  0.45-0.74 ->  SUSPICIOUS       Proceed with caution│
   │  < 0.45   ->  FAKE              Do not buy. Report. │
   └─────────────────────────────────────────────────────┘
@@ -34,7 +34,7 @@ SCALABILITY NOTES:
 """
 
 # Primary Score Thresholds (0.0 - 1.0)
-THRESHOLD_AUTHENTIC  = 0.75   # score >= 0.75 -> AUTHENTIC
+THRESHOLD_AUTHENTIC  = 0.72   # score >= 0.75 -> AUTHENTIC
 THRESHOLD_SUSPICIOUS = 0.45   # score 0.45-0.74 -> SUSPICIOUS
                                # score < 0.45   -> FAKE
 
@@ -60,14 +60,14 @@ SUSPICIOUS_FLOOR_SCORE = THRESHOLD_SUSPICIOUS   # 0.45
 # Bands are inclusive on both ends. Evaluated top-down, first match wins.
 CONFIDENCE_BANDS = [
     (0.90, 1.00, "VERY HIGH"),
-    (0.75, 0.89, "HIGH"),
+    (0.72, 0.89, "HIGH"),
     (0.55, 0.74, "MODERATE"),
     (0.35, 0.54, "LOW"),
     (0.00, 0.34, "VERY LOW"),
 ]
 
 # Override conditions (informational enforced in the three adapters) 
-CRITICAL_REG_STATUSES       = {"NOT_FOUND", "SUBCATEGORY_MISMATCH", "AGENT_ERROR"}
+CRITICAL_REG_STATUSES       = {"NOT_FOUND", "SUBCATEGORY_MISMATCH", "AGENT_ERROR", "EXPIRED"}
 LOGO_MATCH_FLOOR_THRESHOLD = 0.20   # visual raw_similarity below this -> SUSPICIOUS floor
 EXTREME_BLUR_CEILING       = 5.0    # blur_value below this -> RESCAN_REQUIRED
 DAMAGED_SCORE_FLOOR        = 0.40   # damage_score at or above -> DAMAGED weight mode

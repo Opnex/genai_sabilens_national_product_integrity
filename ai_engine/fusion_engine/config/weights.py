@@ -115,9 +115,9 @@ def validate_weights() -> None:
         ("SIGNAL_WEIGHTS",          SIGNAL_WEIGHTS),
         ("SIGNAL_WEIGHTS_DAMAGED",  SIGNAL_WEIGHTS_DAMAGED),
         ("SIGNAL_WEIGHTS_FALLBACK", SIGNAL_WEIGHTS_FALLBACK),
-        ("A1_SUB_WEIGHTS",          VISUAL_SUB_WEIGHTS),
-        ("A2_SUB_WEIGHTS",          OCR_SUB_WEIGHTS),
-        ("A3_SUB_WEIGHTS",          REG_SUB_WEIGHTS),
+        ("VISUAL_SUB_WEIGHTS",          VISUAL_SUB_WEIGHTS),
+        ("OCR_SUB_WEIGHTS",          OCR_SUB_WEIGHTS),
+        ("REG_SUB_WEIGHTS",          REG_SUB_WEIGHTS),
     ]
     for name, weights in sets:
         total = round(sum(weights.values()), 10)

@@ -1,0 +1,5 @@
+Collecting PyMuPDF
+  Using cached pymupdf-1.27.2-cp310-abi3-win_amd64.whl.metadata (3.4 kB)
+Using cached pymupdf-1.27.2-cp310-abi3-win_amd64.whl (19.2 MB)
+Installing collected packages: PyMuPDF
+Successfully installed PyMuPDF-1.27.2
