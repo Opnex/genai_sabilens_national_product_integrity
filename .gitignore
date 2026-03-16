@@ -5,3 +5,4 @@ __pycache__/
 *.pyo
 *.pyd
 chroma_db
+ai_engine\visual\test_images\Product_images_labeled
