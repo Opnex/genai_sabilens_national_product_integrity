@@ -133,7 +133,7 @@ def classify(fusion_result: dict) -> dict:
     Returns:
         ClassificationResult dict:
         {
-            "action":             str,   # "BUY" | "CAUTION" | "DO NOT BUY" | "RESCAN"
+            "action":             str,   # "BUY" | "CAUTION" | "DO NOT BUY THIS PRODUCT. IT IS A COUNTERFEIT." | "RESCAN"
             "verdict":            str,   # "AUTHENTIC" | "SUSPICIOUS" | "FAKE" | "RESCAN_REQUIRED"
             "final_score":        float | None,
             "severity":           str,
@@ -162,7 +162,7 @@ def classify(fusion_result: dict) -> dict:
     breakdown       = fusion_result.get("breakdown", {})
 
     # Core classification 
-    action           = _ACTION_MAP.get(verdict, "DO NOT BUY")
+    action           = _ACTION_MAP.get(verdict, "DO NOT BUY THIS PRODUCT. IT IS A COUNTERFEIT.")
     report_priority  = _REPORT_PRIORITY.get(verdict, "AUTO")
     instruction      = _build_instruction(verdict, fusion_result)
     simple_instruction = _SIMPLE_INSTRUCTIONS.get(verdict, _SIMPLE_INSTRUCTIONS["FAKE"])

@@ -78,7 +78,7 @@ logger = logging.getLogger("ScanOrchestrator")
 # NAFDAC Category Map 
 # Maps human-readable product descriptions to NAFDAC registered category strings.
 # Regulatory's check_alignment tool compares the scanned category against the registered
-# category in the NAFDAC database — these must match the database's own strings.
+# category in the NAFDAC database - these must match the database's own strings.
 #
 # TO ADD A NEW PRODUCT: append a (keyword, nafdac_category) pair.
 # Keywords are matched case-insensitively as substrings of the scanned_category.
@@ -166,7 +166,7 @@ class ScanOrchestrator:
 
     def __init__(self):
 
-        logger.info("Initialising ScanOrchestrator — loading A3 agent...")
+        logger.info("Initialising ScanOrchestrator - loading A3 agent...")
         self._regulatory_agent = NAFDACVerificationAgent()
         logger.info("ScanOrchestrator ready.")
 
@@ -195,7 +195,7 @@ class ScanOrchestrator:
                               "traffic_vendor" | "online" | "unknown"
             receipt_image:    Optional path/base64 for NAFDAC evidence package.
             storefront_image: Optional path/base64 for NAFDAC evidence package.
-            damage_score:     Scan quality from vision DamageDetector — passed to ocr.
+            damage_score:     Scan quality from vision DamageDetector - passed to ocr.
 
         Returns:
             PipelineResult with all verdict fields from fusion's ScanResult.t.
@@ -249,7 +249,7 @@ class ScanOrchestrator:
             final_verdict      = fusion.get("verdict",            "FAKE"),
             final_score        = fusion.get("final_score",        0.0),
             final_severity     = fusion.get("severity",           "CRITICAL"),
-            action             = fusion.get("action",             "DO NOT BUY"),
+            action             = fusion.get("action",             "DO NOT BUY THIS PRODUCT. IT IS A COUNTERFEIT."),
             simple_instruction = fusion.get("simple_instruction", ""),
             atlas_instruction  = fusion.get("atlas_instruction",  ""),
             summary            = fusion.get("atlas_summary",      ""),
@@ -294,12 +294,12 @@ class ScanOrchestrator:
             )
 
         except Exception:
-            logger.warning("OCR failed — using mock signal.", exc_info=True)
+            logger.warning("OCR failed - using mock signal.", exc_info=True)
             return self._mock_ocr_signal()
 
     def _run_regulatory(self, nafdac_no: str, nafdac_category: str) -> AgentSignal:
         """
-        Run regulatory NAFDAC ReAct agent. Always real — never mocked by design.
+        Run regulatory NAFDAC ReAct agent. Always real - never mocked by design.
         On agent failure, returns AGENT_ERROR payload so Fusion's hard override fires.
         """
         try:
@@ -373,7 +373,7 @@ class ScanOrchestrator:
     def _run_vision(self, image_path: str) -> AgentSignal:
         """
         Run Visual pipeline. Falls back to mock on any exception.
-        blur_value and damage_score in the payload drive A4's weight selection.
+        blur_value and damage_score in the payload drive visual's weight selection.
         """
         try:
             import sys, os
@@ -502,7 +502,7 @@ class ScanOrchestrator:
             confidence = MOCK_CONFIDENCE,
             mocked     = True,
             payload    = {
-                "product":           "UNKNOWN — vison not available",
+                "product":           "UNKNOWN - vison not available",
                 "Visual Similarity": MOCK_CONFIDENCE,
                 "damage_score":      0.1,
                 "blur_value":        80.0,
@@ -517,8 +517,8 @@ class ScanOrchestrator:
 
     def explain(self, nafdac_no: str, scanned_category: str) -> str:
         """
-        Run a full scan with mock A1/A2 (no image needed) and return a formatted
-        plain-text report. Useful for demos and the D5 audit panel.
+        Run a full scan with mock visual/ocr (no image needed) and return a formatted
+        plain-text report. Useful for demos and the audit panel.
         """
         result = self.scan(
             image_path       = "EXPLAIN_MODE_NO_IMAGE",
@@ -533,15 +533,15 @@ class ScanOrchestrator:
 
         lines = [
             "",
-            "SABILENS SCAN — Orchestrator Report",
+            "SABILENS SCAN - Orchestrator Report",
             "=" * 60,
             f"NAFDAC      : {nafdac_no}",
             f"Category    : {scanned_category}",
             f"Scan ID     : {result.scan_id}",
             f"Status      : {result.status}",
-            f"A1 Vision   : {'mocked' if result.vision_signal.mocked else 'real'}",
-            f"A2 OCR      : {'mocked' if result.ocr_signal.mocked else 'real'}",
-            f"A3 Reg      : real (always)",
+            f"Vision   : {'mocked' if result.vision_signal.mocked else 'real'}",
+            f"OCR      : {'mocked' if result.ocr_signal.mocked else 'real'}",
+            f"Reg      : real (always)",
             "",
             "REGULATORY AGENT REASONING",
             "-" * 40,
