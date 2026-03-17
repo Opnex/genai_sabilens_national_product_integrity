@@ -1,0 +1,34 @@
+{
+  "ingestion_timestamp": "2026-03-03T12:15:33.831972",
+  "database_path": "./data/raw/nafdac_database.xlsx",
+  "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
+  "loader_report": {
+    "total_rows": 15,
+    "entries_built": 15,
+    "null_nafdac_rows": 0,
+    "subcategory_breakdown": {
+      "Cereals and Cereal Products": 4,
+      "Beverages": 1,
+      "Cosmetics": 5,
+      "Sweeteners": 1,
+      "Fats and oils, and Fat Emulsions": 2,
+      "Salts, Spices, Soups, Sauces, Salads and Seasoning": 2
+    },
+    "warnings": []
+  },
+  "chunk_stats": {
+    "total_entries_processed": 15,
+    "chunks_built": 15,
+    "duplicates_skipped": 0,
+    "subcategory_breakdown": {
+      "Cereals and Cereal Products": 4,
+      "Beverages": 1,
+      "Cosmetics": 5,
+      "Sweeteners": 1,
+      "Fats and oils, and Fat Emulsions": 2,
+      "Salts, Spices, Soups, Sauces, Salads and Seasoning": 2
+    },
+    "null_nafdac_chunks": 0
+  },
+  "final_document_count": 15
+}

@@ -1,0 +1,132 @@
+import sys, os
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
+
+from signals.visual_adapter import adapt as v_adapt, validate as v_validate
+from signals.ocr_adapter    import adapt as o_adapt, validate as o_validate
+from signals.reg_adapter    import adapt as r_adapt, validate as r_validate
+
+
+# ── VISUAL test payloads ──────────────────────────────────────────────────────────
+VISUAL_CLEAN = {
+    "product": "Milo 400g", "Visual Similarity": 0.91,
+    "damage_score": 0.1, "blur_value": 85.0,
+    "confidence": 0.819, "verdict": "Authentic",
+}
+VISUAL_BLURRY = {**VISUAL_CLEAN, "damage_score": 0.8, "blur_value": 3.2}
+VISUAL_LOW_SIM = {**VISUAL_CLEAN, "Visual Similarity": 0.15, "confidence": 0.135}
+
+
+# ── OCR test payloads ──────────────────────────────────────────────────────────
+OCR_CLEAN = {
+    "source": "OCR_Linguistic",
+    "final_text_anomaly_score": 0.12,
+    "ml_score": 0.10,
+    "metadata": {"nafdac_number": "A8-4114", "avg_ocr_confidence": 0.91,
+                 "brand_detected": "Milo"},
+    "brand_anomaly": {"brand_detected": "Milo", "similarity_score": 98.0,
+                      "brand_anomaly_flag": 0, "lookalike_corrections": []},
+    "structural_validation": {"missing_fields": [], "structural_score": 0.95,
+                              "expiry_format_valid": True, "batch_format_valid": True},
+    "rule_score": {"rule_score": 0.10, "damage_score_applied": 0.1,
+                   "adjusted_ocr_confidence": 0.91},
+}
+OCR_NO_NAFDAC = {**OCR_CLEAN,
+    "metadata": {**OCR_CLEAN["metadata"], "nafdac_number": None}}
+
+
+# ── REG test payloads ──────────────────────────────────────────────────────────
+REG_VERIFIED = {
+    "verified": True, "verification_score": 1.0,
+    "status_code": "VERIFIED", "severity": "NONE",
+    "summary": "Product verified.", "detail": "All checks passed.",
+    "expiry_check": {"is_near_expiry": False, "days_remaining": 180},
+    "alignment": {"scanned_norm": "food_supplement"},
+    "matched_record": {"product_name": "Milo 400g", "subcategory": "food_supplement",
+                       "expiry_date_iso": "2026-12-01"},
+    "all_records": [], "fallback_used": False,
+    "tools_called": ["lookup_nafdac", "check_expiry", "check_alignment"],
+    "reasoning_trace": [],
+}
+REG_NOT_FOUND = {
+    **REG_VERIFIED, "verified": False, "verification_score": 0.0,
+    "status_code": "NOT_FOUND", "severity": "CRITICAL",
+    "summary": "Not found.", "detail": "NAFDAC number not in database.",
+    "matched_record": None, "fallback_used": False,
+}
+REG_FALLBACK = {
+    **REG_VERIFIED, "fallback_used": True, "verification_score": 0.85,
+    "status_code": "VERIFIED",
+    "alignment": {"scanned_norm": "food_supplement", "similarity_score": 0.78},
+}
+
+
+def test_visual_adapter_clean():
+    errors = v_validate(VISUAL_CLEAN)
+    blocking = [e for e in errors if not e.startswith("WARNING:")]
+    assert blocking == [], f"Unexpected errors: {blocking}"
+    sig = v_adapt(VISUAL_CLEAN)
+    assert sig["fusion_score"] == round(VISUAL_CLEAN["confidence"], 4)
+    assert sig["damage_score"] == 0.1
+    assert sig["override_flag"] is False
+    print("visual_adapter clean")
+
+def test_visual_adapter_low_similarity():
+    sig = v_adapt(VISUAL_LOW_SIM)
+    assert sig["override_flag"] is True
+    assert sig["override_reason"] is not None
+    print("visual_adapter low_similarity override")
+
+def test_visual_adapter_blurry():
+    sig = v_adapt(VISUAL_BLURRY)
+    assert sig["blur_value"] == 3.2
+    assert sig["damage_score"] == 0.8
+    print("visual_adapter blurry (damage forwarded)")
+
+def test_ocr_adapter_clean():
+    errors = o_validate(OCR_CLEAN)
+    assert errors == [], f"Errors: {errors}"
+    sig = o_adapt(OCR_CLEAN)
+    expected = round(1.0 - OCR_CLEAN["final_text_anomaly_score"], 4)
+    assert sig["fusion_score"] == expected, f"Expected {expected}, got {sig['fusion_score']}"
+    assert sig["nafdac_number"] == "A8-4114"
+    assert sig["override_flag"] is False
+    print("ocr_adapter clean (score inverted correctly)")
+
+def test_ocr_adapter_no_nafdac():
+    sig = o_adapt(OCR_NO_NAFDAC)
+    assert sig["override_flag"] is True
+    assert sig["nafdac_number"] is None
+    print("ocr_adapter no_nafdac override")
+
+def test_rag_adapter_verified():
+    errors = r_validate(REG_VERIFIED)
+    assert errors == [], f"Errors: {errors}"
+    sig = r_adapt(REG_VERIFIED)
+    assert sig["fusion_score"] == 1.0
+    assert sig["retrieval_path"] == "nafdac_exact"
+    assert sig["override_flag"] is False
+    print("reg_adapter verified")
+
+def test_rag_adapter_not_found():
+    sig = r_adapt(REG_NOT_FOUND)
+    assert sig["override_flag"] is True
+    assert sig["retrieval_path"] == "nafdac_exact"
+    print("reg_adapter not_found override")
+
+def test_rag_adapter_fallback():
+    sig = r_adapt(REG_FALLBACK)
+    assert sig["retrieval_path"] == "semantic_fallback"
+    assert sig["fallback_used"] is True
+    print("reg_adapter semantic_fallback path")
+
+
+if __name__ == "__main__":
+    test_visual_adapter_clean()
+    test_visual_adapter_low_similarity()
+    test_visual_adapter_blurry()
+    test_ocr_adapter_clean()
+    test_ocr_adapter_no_nafdac()
+    test_rag_adapter_verified()
+    test_rag_adapter_not_found()
+    test_rag_adapter_fallback()
+    print("\nAll adapter tests passed.")

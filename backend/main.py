@@ -2,8 +2,13 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
+<<<<<<< HEAD:backend/main.py
 from backend.config import settings
 from backend.routers import auth, company, websocket
+=======
+from app.config import settings
+from app.routers import auth, consumer, company, nafdac, shared
+>>>>>>> 41884c67c1c2c849442e7993d5bb3d988cf6c38d:app/main.py
 
 
 @asynccontextmanager
@@ -50,12 +55,12 @@ async def root():
 async def health_check():
     return {"status": "healthy"}
 
-# Include routers (uncomment when routers are created)
-# app.include_router(auth.router, prefix="/api/auth", tags=["Authentication"])
-# app.include_router(consumer.router, prefix="/api/consumer", tags=["Consumer"])
-# app.include_router(company.router, prefix="/api/company", tags=["Company"])
-# app.include_router(nafdac.router, prefix="/api/nafdac", tags=["NAFDAC"])
-# app.include_router(shared.router, prefix="/api/verify", tags=["Verification"])
+#Include routers (uncomment when routers are created)
+app.include_router(auth.router, prefix="/api/auth", tags=["Authentication"])
+app.include_router(consumer.router, prefix="/api/consumer", tags=["Consumer"])
+app.include_router(company.router, prefix="/api/company", tags=["Company"])
+app.include_router(nafdac.router, prefix="/api/nafdac", tags=["NAFDAC"])
+app.include_router(shared.router, prefix="/api/verify", tags=["Verification"])
 
 
 if __name__ == "__main__":
