@@ -9,14 +9,13 @@ import sys
 # Add app to path
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
-from app.config import settings
-from app.models.user import Base as UserBase
-from app.models.company import Base as CompanyBase
-from app.models.product import Base as ProductBase
-from app.models.scan import Base as ScanBase
-from app.models.alert import Base as AlertBase
-from app.models.nafdac import Base as NafdacBase
-from app.models.analytics import Base as AnalyticsBase
+from backend.config import settings
+from backend.models.user import Base as UserBase
+from backend.models.company import Base as CompanyBase
+from backend.models.product import Base as ProductBase
+from backend.models.scan import Base as ScanBase
+from backend.models.alert import Base as AlertBase
+from backend.models.analytics import Base as AnalyticsBase
 
 # Combine all metadata
 metadata = UserBase.metadata

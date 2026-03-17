@@ -4,10 +4,10 @@
 
 ### 1. Create Route Handler
 ```python
-# app/routers/new_module.py
+# backend/routers/new_module.py
 from fastapi import APIRouter, Depends, HTTPException
-from app.utils.dependencies import get_current_user
-from app.databases import get_db
+from backend.utils.dependencies import get_current_user
+from backend.databases import get_db
 
 router = APIRouter()
 
@@ -24,7 +24,7 @@ async def get_item(item_id: str, current_user = Depends(get_current_user), db: A
 
 ### 2. Register in main.py
 ```python
-from app.routers import new_module
+from backend.routers import new_module
 
 app.include_router(new_module.router, prefix="/api/v1/new", tags=["new"])
 ```
@@ -35,8 +35,8 @@ app.include_router(new_module.router, prefix="/api/v1/new", tags=["new"])
 
 ### Example: Scan Service
 ```python
-from app.services.scan_service import ScanService
-from app.schemas.consumer import ScanCreateRequest
+from backend.services.scan_service import ScanService
+from backend.schemas.consumer import ScanCreateRequest
 
 # Create a scan
 scan = await ScanService.create_scan(db, user_id, ScanCreateRequest(...))
@@ -61,7 +61,7 @@ analysis = await ScanService.record_analysis(db, scan_id, {
 
 ### From Route Handler
 ```python
-from app.services.ai_service import process_visual_analysis
+from backend.services.ai_service import process_visual_analysis
 
 # Trigger async task
 task = process_visual_analysis.delay(scan_id, image_url)
@@ -90,7 +90,7 @@ celery -A app.core.celery_app inspect active_queues
 
 ### Protect Route by Role
 ```python
-from app.utils.dependencies import require_role
+from backend.utils.dependencies import require_role
 
 @router.post("/admin-only")
 async def admin_action(current_user = Depends(require_role("nafdac_admin")), db: AsyncSession = Depends(get_db)):
@@ -110,7 +110,7 @@ async def admin_action(current_user = Depends(require_role("nafdac_admin")), db:
 
 ### Template
 ```python
-# app/services/my_service.py
+# backend/services/my_service.py
 from typing import Optional, List
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, desc
@@ -137,8 +137,8 @@ class MyService:
 
 ### Register Service
 ```python
-# app/services/__init__.py
-from app.services.my_service import MyService
+# backend/services/__init__.py
+from backend.services.my_service import MyService
 
 __all__ = [..., "MyService"]
 ```
@@ -257,7 +257,7 @@ POST /api/v1/consumer/scan
 # tests/test_auth.py
 import pytest
 from fastapi.testclient import TestClient
-from app.main import app
+from backend.main import app
 
 client = TestClient(app)
 
@@ -317,7 +317,7 @@ async def async_task(data):
 ### Never hardcode credentials
 ```python
 # ✅ CORRECT
-from app.config import settings
+from backend.config import settings
 api_key = settings.EXTERNAL_API_KEY
 
 # ❌ INCORRECT
@@ -331,7 +331,7 @@ EXTERNAL_API_KEY=sk_live_abc123xyz
 
 ### Access in code
 ```python
-from app.config import settings
+from backend.config import settings
 key = settings.EXTERNAL_API_KEY
 ```
 
@@ -383,13 +383,13 @@ from uuid import uuid4
 from typing import Optional, List
 
 # Project modules
-from app.database import get_db
-from app.models import User, Scan
-from app.schemas import UserResponse
-from app.services import AuthService
-from app.utils.response import success_response
-from app.utils.dependencies import get_current_user
-from app.config import settings
+from backend.database import get_db
+from backend.models import User, Scan
+from backend.schemas import UserResponse
+from backend.services import AuthService
+from backend.utils.response import success_response
+from backend.utils.dependencies import get_current_user
+from backend.config import settings
 ```
 
 ---

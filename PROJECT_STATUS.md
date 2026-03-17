@@ -29,49 +29,49 @@
 ### Code Files (45+ total)
 
 **Core Framework**
-- ✅ app/main.py (FastAPI entry point)
-- ✅ app/config.py (Settings management)
-- ✅ app/database.py (SQLAlchemy async setup)
+- ✅ backend/main.py (FastAPI entry point)
+- ✅ backend/config.py (Settings management)
+- ✅ backend/database.py (SQLAlchemy async setup)
 
 **Models (7 files)**
-- ✅ app/models/user.py
-- ✅ app/models/scan.py
-- ✅ app/models/company.py
-- ✅ app/models/product.py
-- ✅ app/models/alert.py
-- ✅ app/models/nafdac.py
-- ✅ app/models/analytics.py
+- ✅ backend/models/user.py
+- ✅ backend/models/scan.py
+- ✅ backend/models/company.py
+- ✅ backend/models/product.py
+- ✅ backend/models/alert.py
+- ✅ backend/models/nafdac.py
+- ✅ backend/models/analytics.py
 
 **Services (6 files)**
-- ✅ app/services/auth_service.py (8 async methods)
-- ✅ app/services/scan_service.py (5 async methods)
-- ✅ app/services/ai_service.py (5 Celery tasks)
-- ✅ app/services/report_service.py (5 async methods)
-- ✅ app/services/nafdac_service.py (6 async methods)
-- ✅ app/services/company_service.py (6 async methods)
+- ✅ backend/services/auth_service.py (8 async methods)
+- ✅ backend/services/scan_service.py (5 async methods)
+- ✅ backend/services/ai_service.py (5 Celery tasks)
+- ✅ backend/services/report_service.py (5 async methods)
+- ✅ backend/services/nafdac_service.py (6 async methods)
+- ✅ backend/services/company_service.py (6 async methods)
 
 **Routes (4 files)**
-- ✅ app/routers/auth.py (9 endpoints, fully functional)
-- ✅ app/routers/consumer.py (6+ endpoints, functional)
-- ✅ app/routers/company.py (7+ endpoints, functional)
-- ✅ app/routers/nafdac.py (6+ endpoints, functional)
+- ✅ backend/routers/auth.py (9 endpoints, fully functional)
+- ✅ backend/routers/consumer.py (6+ endpoints, functional)
+- ✅ backend/routers/company.py (7+ endpoints, functional)
+- ✅ backend/routers/nafdac.py (6+ endpoints, functional)
 
 **Schemas (5 files, 80+ models)**
-- ✅ app/schemas/auth.py (14 models)
-- ✅ app/schemas/consumer.py (16 models)
-- ✅ app/schemas/company.py (10 models)
-- ✅ app/schemas/nafdac.py (12 models)
-- ✅ app/schemas/shared.py (6 models)
+- ✅ backend/schemas/auth.py (14 models)
+- ✅ backend/schemas/consumer.py (16 models)
+- ✅ backend/schemas/company.py (10 models)
+- ✅ backend/schemas/nafdac.py (12 models)
+- ✅ backend/schemas/shared.py (6 models)
 
 **Utilities (3 files)**
-- ✅ app/utils/response.py (Standard API responses)
-- ✅ app/utils/pagination.py (List pagination helper)
-- ✅ app/utils/dependencies.py (Auth guards, dependency injection)
+- ✅ backend/utils/response.py (Standard API responses)
+- ✅ backend/utils/pagination.py (List pagination helper)
+- ✅ backend/utils/dependencies.py (Auth guards, dependency injection)
 
 **Core Modules (3 files)**
-- ✅ app/core/security.py (JWT + bcrypt)
-- ✅ app/core/celery_app.py (Task queue config)
-- ✅ app/core/websocket.py (Real-time connections)
+- ✅ backend/core/security.py (JWT + bcrypt)
+- ✅ backend/core/celery_app.py (Task queue config)
+- ✅ backend/core/websocket.py (Real-time connections)
 
 **Configuration**
 - ✅ alembic.ini (Migration config)
@@ -272,7 +272,7 @@
 
 ### For Mr Openx (Company Module)
 ```
-Location: app/routers/company.py, app/services/company_service.py
+Location: backend/routers/company.py, backend/services/company_service.py
 
 ✅ Already done:
 - Company registration flow
@@ -290,7 +290,7 @@ TODO:
 
 ### For Barrister Femi (NAFDAC Module)
 ```
-Location: app/routers/nafdac.py, app/services/nafdac_service.py
+Location: backend/routers/nafdac.py, backend/services/nafdac_service.py
 
 ✅ Already done:
 - Case creation
@@ -411,7 +411,7 @@ If continuing in another session:
 2. **Start Services**
    ```bash
    # Terminal 1: FastAPI
-   uvicorn app.main:app --reload
+   uvicorn backend.main:app --reload
    
    # Terminal 2: Celery
    celery -A app.core.celery_app worker --loglevel=info

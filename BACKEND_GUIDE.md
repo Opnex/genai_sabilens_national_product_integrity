@@ -116,7 +116,7 @@ alembic upgrade head
 ### 4. Start Services
 ```bash
 # Terminal 1: FastAPI Server
-uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+uvicorn backend.main:app --reload --host 0.0.0.0 --port 8000
 
 # Terminal 2: Celery Worker (for AI tasks)
 celery -A app.core.celery_app worker --loglevel=info
